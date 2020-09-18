@@ -13,7 +13,9 @@ and replace it with the following code:
 {%- assign product_description_content = product.description -%}
 
 {%-if section.settings.enable_description_tabs -%}
+
   {%- assign product_description_content = product_description_content | split: '<h6>' | first -%}
+  
 {%- endif -%}
 
 {% if product_description_content != '' %}
