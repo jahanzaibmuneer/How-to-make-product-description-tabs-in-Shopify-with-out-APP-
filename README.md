@@ -2,7 +2,7 @@
 
 Step 1: First you need to open you theme code. In templates folder find the file product.liquid
 
-Step 2: If your theme has section then in the product.liquid you will see {% section 'product-template' %} option this file from sections folder.
+Step 2: In the product.liquid you will see {% section 'product-template' %}. Open this file from sections folder.
 
 Step 3: Find the following code in product-template.liquid
 
@@ -11,6 +11,7 @@ Step 3: Find the following code in product-template.liquid
 and replace it with the following code:
 
 {%- assign product_description_content = product.description -%}
+
 {%-if section.settings.enable_description_tabs -%}
   {%- assign product_description_content = product_description_content | split: '<h6>' | first -%}
 {%- endif -%}
