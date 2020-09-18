@@ -1,0 +1,81 @@
+<!-- /snippets/product-tabs.liquid -->
+
+{%- assign tab_headings = "" -%}
+{%- assign tab_contents = "" -%}
+{%- assign product_description_split = product.description | replace: '<p>[split]</p>', '[split]' | replace: '[split]', '' | replace: '<h6></h6>', '' -%}
+
+
+{% comment %}
+Replace the heading deliminator with a string that is highly unlikely to occur naturally [!ヽ(´ー｀)/!]
+{% endcomment %}
+{%- assign product_description_split = product_description_split | replace: '<h6>', '[!ヽ(´ー｀)/!]' |  replace: '</h6>', '[!ヽ(´ー｀)/!]' | split: '[!ヽ(´ー｀)/!]' -%}
+{%- for item in product_description_split -%}
+  {% comment %}
+  The zero item is the product description, after that tab headings are odd and contents are even.
+  {% endcomment %}
+  {%- assign odd_mod = forloop.index0 | modulo:2 -%}
+  {%- if odd_mod == 0 -%}
+    {%- unless forloop.index0 == 0 -%}
+    	{%- assign tab_contents = tab_contents | append: item | append: '[!ヽ(´ー｀)/!]' -%}
+    {%- endunless -%}
+  {%- endif -%}
+  {%- if odd_mod == 1 -%}
+  	{%- assign tab_headings = tab_headings | append: item | append: '[!ヽ(´ー｀)/!]' -%}
+  {%- endif -%}
+{%- endfor -%}
+
+
+{%- assign tab_headings = tab_headings | split: '[!ヽ(´ー｀)/!]' -%}
+{%- assign tab_contents = tab_contents | split: '[!ヽ(´ー｀)/!]' -%}
+
+<div class="product-accordion">
+  <div class="accordion">
+    {%- for item in tab_headings -%}
+      <h3 class="accordion-toggle">
+        {{item}}
+        <i class="fa fa-angle-down icons-position">+</i>
+      </h3>
+      <div class="accordion-content">
+        {{ tab_contents[forloop.index0] }}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  .accordion-content {
+    display: none;
+  }
+  
+  .open {
+  	display: block;
+  }
+  
+  .accordion-toggle {
+    line-height: 1;
+    margin: 0 !important;
+    padding: 8px 0 12px 0;
+    color: #e68701;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .accordion-content {
+    padding-left: 12px;
+  }
+  
+  .icons-position {
+    position: absolute;
+    right: 1%;
+  }
+  
+</style>
+
+<script>
+  //If you got "$ is not defined" error in console then put this code in your theme.js file
+  $('.accordion-toggle').click(function(){
+    $(this).next().toggleClass("open");
+    $(this).find('i').toggleClass('fa-angle-down');
+    $(this).find('i').toggleClass('fa-angle-up');
+  });
+</script>
