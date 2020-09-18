@@ -11,6 +11,7 @@ Step 3: Find the following code in product-template.liquid
 and replace it with the following code in file product-template.liquid (see file in the repository):
 
 Step 4: In schema code append the following code in the settings array
+
 {
   "type": "checkbox",
   "id": "enable_description_tabs",
