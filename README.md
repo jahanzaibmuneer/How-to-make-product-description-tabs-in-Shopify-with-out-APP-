@@ -1,1 +1,1 @@
-# shopify-product-description-tabs
+# How to make product description tabs in Shopify with out APP?
